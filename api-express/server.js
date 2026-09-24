@@ -15,13 +15,14 @@ let tarefas = [
 const middlewareAutenticacao = (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
-    if (authHeader === 'chave-secreta') {
-        next();
-    } else {
-        res.status(401).json({
+    if (authHeader !== 'chave-secreta') {
+     
+        return res.status(401).json({
             erro: "Não autorizado. Token ausente ou inválido."
         });
     }
+
+    next()
 };
 
 // Middleware 2 - Validação do corpo
